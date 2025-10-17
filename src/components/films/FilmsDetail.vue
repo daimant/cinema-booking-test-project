@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { IFilm } from "../../types.ts";
-import { useRoute } from "vue-router";
+import type { IFilm, ISessionsDates } from "../../types.ts";
+import { useRoute, useRouter } from "vue-router";
 import { useFilmsStore } from "../../stores/films.ts";
 import { storeToRefs } from "pinia";
 import { timeHelper } from "../../helpers/timeHelper.ts";
-import { UiTag } from '@dv.net/ui-kit'
+import { UiButton } from '@dv.net/ui-kit'
 
 const route = useRoute()
+const router = useRouter()
 const { filmsList, filmSessions, filmsImages } = storeToRefs(useFilmsStore())
-const { getFilms, getFilmSessions } = useFilmsStore()
+const { getFilmSessions } = useFilmsStore()
 const film = ref<IFilm>()
 
-const computedSessions = computed(() => filmSessions.value.get(Number(route.params.id)))
+const computedSessions = computed<ISessionsDates | undefined>(() => filmSessions.value.get(Number(route.params.id)))
 
 onMounted(async () => {
-  await getFilms()
   await getFilmSessions(Number(route.params.id))
-
   film.value = filmsList.value?.find(({ id }) => id === Number(route.params.id))
 })
 </script>
@@ -35,12 +34,31 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div v-for="{date, cinemaId, sessions} in computedSessions" class="films-detail-session-item" :key="date">
-      <div>{{ date }}</div>
-      <div class="films-detail-session-item-body">
-        <div>{{ cinemaId }}</div>
-        <div class="films-detail-times">
-          <UiTag v-for="time in sessions" :key="time" :text="time"/>
+    <div
+      v-if="computedSessions"
+      v-for="date in Object.keys(computedSessions)"
+      class="films-detail-session-item" :key="date"
+    >
+      {{ date }}
+      <div
+        v-if="computedSessions[date]"
+        v-for="cinemaId in Object.keys(computedSessions[date])"
+        class="films-detail-session-item" :key="`${cinemaId}${date}`"
+      >
+        <div class="films-detail-session-item-body">
+          <div>{{ cinemaId }}</div>
+          <div v-if="computedSessions[date][cinemaId]?.sessions" class="films-detail-times">
+            <UiButton
+              size="sm"
+              mode="neutral"
+              type="outline"
+              v-for="bookingTime in computedSessions[date][cinemaId].sessions"
+              :key="`${bookingTime}${cinemaId}${date}`"
+              @click="router.push({name: 'tickets-booking', params: { id: bookingTime.id }})"
+            >
+              {{ bookingTime.time }}
+            </UiButton>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +86,7 @@ onMounted(async () => {
 
   &-session-item-body {
     display: flex;
+
     > div {
       min-width: 50%;
     }
