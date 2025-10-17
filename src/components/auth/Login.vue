@@ -23,7 +23,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
       <h2>Вход</h2>
 

@@ -3,7 +3,9 @@ import { UiForm, UiFormItem, UiInput, UiButton } from "@dv.net/ui-kit";
 import { computed, ref } from "vue";
 import type { UiFormRules } from "@dv.net/ui-kit/dist/components/UiForm/types";
 import { postFetch } from "../../api/postFetch.ts";
+import { useRouter } from "vue-router";
 
+const router = useRouter()
 const form = ref({ username: '', password1: '', password2: '' })
 const formRef = ref<HTMLFormElement | null>(null);
 
@@ -25,7 +27,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="mw-500">
+  <div class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
       <h2>Регистрация</h2>
 
@@ -42,6 +44,13 @@ const handleSubmit = async () => {
       </UiFormItem>
 
       <UiButton mode="neutral" native-type="submit">Зарегистрироваться</UiButton>
+
+      <div class="mt-4">
+        <div>или</div>
+        <UiButton type="tertiary" mode="neutral" size="sm" @click="router.push({name: 'login'})">
+          Войти
+        </UiButton>
+      </div>
     </UiForm>
   </div>
 </template>
