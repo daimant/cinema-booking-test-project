@@ -34,6 +34,11 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/tickets",
     name: "tickets",
-    component: () => import("./components/tickets/Tickets.vue"),
+    component: () => import("./components/tickets/TicketsList.vue"),
+  },
+  {
+    path: "/tickets-booking/:id",
+    name: "tickets-booking",
+    component: () => import("./components/tickets/TicketsBooking.vue"),
   }
 ]
