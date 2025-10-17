@@ -1,24 +1,22 @@
 {
   "name": "cinema-booking",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "build": "vue-tsc -b && vite build"
   },
   "dependencies": {
     "@dv.net/ui-kit": "^7.2.13",
-    "add": "^2.0.6",
     "vue": "^3.5.22",
-    "vue-router": "^4.6.3",
-    "yarn": "^1.22.22"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@types/node": "^24.6.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "scss": "^0.2.4",
     "typescript": "~5.9.3",
     "vite": "^7.1.7",
     "vue-tsc": "^3.1.0"

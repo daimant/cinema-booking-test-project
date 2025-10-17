@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 
 export const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
+    path: "/films",
     name: "films",
     component: () => import("./components/films/FilmsTable.vue"),
   },

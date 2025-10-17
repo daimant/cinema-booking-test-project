@@ -4,6 +4,8 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./routes.ts";
 
+import '@dv.net/ui-kit/dist/style.css'
+
 const app = createApp(App)
 const router = createRouter({ history: createWebHistory(), routes })
 

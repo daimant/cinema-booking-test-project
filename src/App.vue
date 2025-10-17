@@ -1,18 +1,27 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import Navigation from "./components/navigation/Navigation.vue";
 
 const route = useRoute()
 const router = useRouter()
 
 onMounted(() => {
-  console.log(route, 'mounted')
+  if (route.path === '/') router.push({ name: 'films' })
 })
 </script>
 
 <template>
-  <div>
-
+  <div class="main">
+    <Navigation/>
     <RouterView/>
   </div>
 </template>
+
+<style scoped lang="scss">
+
+.main {
+  position: relative;
+}
+
+</style>
