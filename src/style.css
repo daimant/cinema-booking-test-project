@@ -89,3 +89,7 @@ input {
 .mw-500 {
   min-width: 250px;
 }
+
+.flex {
+  display: flex;
+}
