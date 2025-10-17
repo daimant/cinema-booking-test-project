@@ -81,3 +81,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+input {
+  color: inherit;
+}
+
+.mw-500 {
+  min-width: 250px;
+}
