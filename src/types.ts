@@ -66,3 +66,7 @@ export type IBooking = {
     }
   ]
 }
+
+export type ISettings = {
+  bookingPaymentTimeSeconds: number,
+}

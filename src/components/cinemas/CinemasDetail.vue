@@ -45,7 +45,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h2>{{ cinema?.name }}</h2>
+    <h1>{{ cinema?.name }}</h1>
     <Sessions :sessions="computedSessions"/>
   </div>
 </template>

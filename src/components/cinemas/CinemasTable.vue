@@ -9,8 +9,8 @@ const router = useRouter()
 const { cinemasList } = storeToRefs(useCinemasStore())
 
 const headers: UiTableHeader[] = [
-  { name: 'name', label: 'Кинотеатр' },
-  { name: 'address', label: 'Адрес' },
+  { name: 'name', label: 'Cinema' },
+  { name: 'address', label: 'Address' },
   { name: 'detail' },
 ]
 </script>
@@ -19,7 +19,7 @@ const headers: UiTableHeader[] = [
   <UiTable class='cinema-table' :data="cinemasList || []" :headers="headers">
     <template #body-cell-detail="{ row: { id } }">
       <UiButton type='outline' mode="neutral" @click="router.push({name: 'cinemas-detail', params: { id }})">
-        Посмотреть сеансы
+        View showtimes
       </UiButton>
     </template>
   </UiTable>

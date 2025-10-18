@@ -10,7 +10,7 @@ export const getFetch = async (url: string, token?: string) => {
     const data = await res.json()
 
     if (res.ok) return data
-    else UiNotification('Ошибка загрузки данных')
+    else UiNotification('Error loading data')
   } catch (e) {
     UiNotification(String(e))
   }

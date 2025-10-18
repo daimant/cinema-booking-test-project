@@ -1,117 +1,171 @@
-Frontend разработчик / Тестовое задание
-Привет! Рады видеть человека, готового показать нам свои технические навыки и выполнить тестовое задание на высоком уровне!
+# Frontend Developer / Test Assignment
 
-Надеемся, оно покажется тебе интересным и ты сможешь проявить весь свой талант frontend разработчика!
+Hello! We’re excited to see someone ready to showcase their technical skills and complete this test assignment at a high
+level!
 
-Мы ждем от тебя готовое решение в течение недели. На его выполнение у тебя уйдет до 20 часов.
+We hope you find it interesting and get a chance to demonstrate your full potential as a frontend developer.
 
-Твои старания окупятся многократно огромным удовольствием от дальнейшей работы с нашими ребятами! А ребята у нас очень классные!
+We expect a completed solution within **one week**, which should take up to **20 hours** to complete.
 
-Задача имеет исключительно тестовый характер. Твоя цель - показать свои технические навыки. Удели внимание всем мелочам, которые буду обязательно приняты нами во внимание!
+Your efforts will be rewarded many times over with the joy of working with our amazing team! And trust us, our team is
+really awesome!
 
+> **Note:** This task is purely for testing purposes. Your goal is to demonstrate your technical skills. Pay attention
+> to every detail—they will be carefully reviewed.
 
+---
 
-Тестовое задание: Платформа онлайн-бронирования кинотеатра
+## Test Assignment: Online Cinema Booking Platform
 
-Цель:
-Разработать веб-приложение для бронирования билетов в кинотеатр, где пользователи смогут:
+### Goal
 
-Просматривать расписание сеансов
-Бронировать места в зале
-Управлять своими заказами
+Develop a web application for booking cinema tickets, where users can:
 
-Design:
-Для комфортного выполнения задачи, мы подготовили отличный прототип. С ним тебе будет легче разобраться с требованиями!
-Прототип кликабельный, ознакомься - ссылка на прототип!
+* View the schedule of movie sessions
+* Reserve seats in a cinema hall
+* Manage their bookings
 
+---
 
+### Design
 
-API:
-Также для тестового задания разработана бекенд часть, документированная в Swagger. Ссылку на Swagger, инструкции по запуску и открытию ты найдешь в README бекенда. Ссылка на репозиторий.
+To make the task easier, we have prepared a **clickable prototype**. This will help you understand the requirements
+clearly.
+[Link to prototype]
 
+---
 
+### API
 
-Основной функционал:
-Меню состоит из пунктов:
-Фильмы
-Кинотеатры
-Мои билеты
-Вход/Выход
-Авторизация и регистрация
-Регистрация
-Поля: username, password, password confirmation
-Валидация:
-username: минимум 8 символов
-password: минимум 8 символов, минимум 1 заглавная буква и 1 цифра
-password confirmation: должен совпадать с password
-Регистрация выполняется запросом POST /register в API
-После успешной регистрации пользователь попадает на страницу «Мои билеты»
-Авторизация (логин по username и password)
-После успешной авторизации пользователь попадает на страницу «Мои билеты»
-Текст ошибки при логине: “Неверный логин или пароль. Проверьте введенные данные и попробуйте снова“.
-Вход выполняется запросом POST /login в API
-Выход из аккаунта
-после авторизации пункт в меню “Вход“ меняется на “Выход“.
-при клике на “Выход“ происходит разлогин и пользователь попадает на страницу “Фильмы“
-Просмотр фильмов и кинотеатров
-Грид фильмов (краткая информация + постер)
-При клике на «просмотреть сеансы» → переход на страницу c описанием фильма и таблицей с сеансами в разных кинотеатрах
-Получить список фильмов можно запросом на GET /movies в API
-Получить список киносеансов для фильма можно запросом GET /movies/{movieId}/sessions
-Список кинотеатров
-При клике на «просмотреть сеансы» → переход на страницу кинотеатра с ближайшими сеансами
-Получить список кинотеатров можно при помощи запроса GET /cinemas
-Получить список киносеансов кинотеатра можно при помощи запроса GET /cinemas/{cinemaId}/session
-Бронирование билетов
-Если пользователь не авторизован:
-Только просмотр занятых мест
-Кнопка бронирования ведет на страницу регистрации/входа.
-Если пользователь авторизован:
-Выбор свободных мест (зал прямоугольный с одинаковым количеством мест в каждом ряду)
-При клике на «Забронировать» → переход на страницу "Мои Билеты"
-Данные киносеанса, нужные для бронирования можно получить запросом GET /movieSessions/{movieSessionId}
-размеры зала определяются в объекте seats
-занятые места определяются в массиве bookedSeats
-Бронирование ваполняется при помощи отправки запроса POST /movieSessions/{movieSessionId
-Управление заказами ("Мои Билеты")
-Страница «Мои Билеты» доступна только для авторизованного пользователя
-Если неавторизованный пользователь переходит на страницу “Мои Билеты”, то должно произойти перенаправление на страницу авторизации
-Страница должна содержать все билеты пользователя, сгруппированные в 3 категории:
-Неоплаченные
-Будущие
-Прошедшие
-Для получения всех билетов можно использовать запрос GET /me/bookings
-Оплата билетов
-Время на оплату неполаченного билета ограничено
-Времени на оплату (в секундах) берется из ответа GET /settings и отсчитывается начиная со времени bookedAt заказа
-Возле неоплаченного билета должны быть кнопка “Оплатить” и таймер с оставшимся на оплату временем
-Если время на оплату вышло - билет удаляется из списка, список обновляется.
-При клике на «Оплатить» должен выполняться запрос POST /bookings/{bookingId}/payments и после его успешного завершения:
-кнопка “Оплатить” должна скрываться
-список билетов должен обновится и оплаченные билеты должны попасть в блок “Будущие”.
+A backend for this test assignment is already developed and documented in **Swagger**. You can find the link, setup
+instructions, and access details in the backend README.
+[Backend repository link]
 
+---
 
-Технические требования:
-✅ TypeScript
+### Core Features
 
-✅ Фреймворк: Vue 3 / Nuxt 3 / React / Next
+#### Menu
 
-✅ Валидация форм (логин, регистрация)
+* Movies
+* Cinemas
+* My Tickets
+* Login/Logout
 
-✅ Тесты: несколько тестов на ключевые компоненты
+#### Authorization & Registration
 
-✅ Дизайн: простой, десктоп-ориентированный (сложная верстка не нужна)
+* **Registration fields:** username, password, password confirmation
 
+* **Validation rules:**
 
+    * `username`: minimum 8 characters
+    * `password`: minimum 8 characters, at least 1 uppercase letter and 1 number
+    * `password confirmation`: must match password
 
-Как оформить решение:
-Реализовать фронтенд в отдельном репозитории
-Описать в README запуск проекта
-Прислать ссылку на репозиторий в форме вакансии, на которую откликаетесь
+* Registration via `POST /register`
 
+* After successful registration, users are redirected to **My Tickets** page
 
-Критерии оценки:
-Выполнение функциональных требований
-Чистота кода
-Масштабируемость и поддерживаемость архитектуры
-Наличие тестов
+* **Login:** via username and password (`POST /login`)
+
+* On successful login, users are redirected to **My Tickets**
+
+* Login error message: “Incorrect username or password. Please check your credentials and try again.”
+
+* **Logout:**
+
+    * The “Login” menu item changes to “Logout” after authentication
+    * Clicking “Logout” logs the user out and redirects to the **Movies** page
+
+---
+
+#### Browsing Movies & Cinemas
+
+* **Movie grid:** brief info + poster
+
+* Clicking **View Sessions** → navigates to movie details page with sessions in various cinemas
+
+* API:
+
+    * `GET /movies` – list of movies
+    * `GET /movies/{movieId}/sessions` – sessions for a movie
+
+* **Cinema list:**
+
+* Clicking **View Sessions** → navigates to cinema page with upcoming sessions
+
+* API:
+
+    * `GET /cinemas` – list of cinemas
+    * `GET /cinemas/{cinemaId}/sessions` – sessions for a cinema
+
+---
+
+#### Booking Tickets
+
+* **For unauthenticated users:**
+
+    * Can only view taken seats
+    * Booking button redirects to registration/login
+
+* **For authenticated users:**
+
+    * Select available seats (rectangular hall layout with equal seats per row)
+    * Clicking **Book** → redirects to **My Tickets** page
+    * API:
+
+        * `GET /movieSessions/{movieSessionId}` – session details (seat layout and booked seats)
+        * `POST /movieSessions/{movieSessionId}` – booking
+
+---
+
+#### Managing Bookings (“My Tickets”)
+
+* Page accessible **only for authenticated users**
+
+* Redirect unauthenticated users to login page
+
+* Tickets are grouped into **3 categories**:
+
+    * Unpaid
+    * Upcoming
+    * Past
+
+* API: `GET /me/bookings` – list all user tickets
+
+* **Payment:**
+
+    * Unpaid tickets have a countdown timer based on the `paymentTime` from `GET /settings`
+    * If time expires, ticket is removed automatically
+    * Clicking **Pay** → `POST /bookings/{bookingId}/payments`
+    * After successful payment:
+
+        * **Pay** button hides
+        * Ticket moves to **Upcoming**
+
+---
+
+### Technical Requirements
+
+* ✅ TypeScript
+* ✅ Framework: Vue 3 / Nuxt 3 / React / Next.js
+* ✅ Form validation (login, registration)
+* ✅ Tests: basic tests for key components
+* ✅ Design: simple, desktop-focused layout (no complex styling required)
+
+---
+
+### Submission
+
+* Implement frontend in a **separate repository**
+* Include **README** with project setup instructions
+* Submit the **repository link** in your job application
+
+---
+
+### Evaluation Criteria
+
+* Functional requirements implemented
+* Clean, maintainable code
+* Scalable and maintainable architecture
+* Presence of tests

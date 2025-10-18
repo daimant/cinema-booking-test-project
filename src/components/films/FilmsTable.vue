@@ -11,9 +11,9 @@ const { filmsList, filmsImages } = storeToRefs(useFilmsStore())
 
 const headers: UiTableHeader[] = [
   { name: 'image' },
-  { name: 'title', label: 'Название' },
-  { name: 'length', label: 'Продолжительность' },
-  { name: 'rating', label: 'Рейтинг' },
+  { name: 'title', label: 'Name' },
+  { name: 'length', label: 'Duration' },
+  { name: 'rating', label: 'Rating' },
   { name: 'detail' },
 ]
 </script>
@@ -28,7 +28,7 @@ const headers: UiTableHeader[] = [
 
     <template #body-cell-detail="{ row: { id } }">
       <UiButton type='outline' mode="neutral" @click="router.push({name: 'films-detail', params: { id }})">
-        Посмотреть сеансы
+        View showtimes
       </UiButton>
     </template>
   </UiTable>

@@ -11,11 +11,11 @@ const formRef = ref<HTMLFormElement | null>(null);
 
 const rulesForm = computed<UiFormRules>(() => {
   return {
-    username: [{ validator: () => form.value.username.length > 0, message: 'Введите логин' }],
-    password1: [{ validator: () => form.value.password1.length > 0, message: 'Введите пароль' }],
+    username: [{ validator: () => form.value.username.length > 0, message: 'Enter login.' }],
+    password1: [{ validator: () => form.value.password1.length > 0, message: 'Enter password.' }],
     password2: [
-      { validator: () => form.value.password2.length > 0, message: 'Введите подтверждение пароля' },
-      { validator: () => form.value.password1 === form.value.password2, message: 'Пароли должны совпадать' },
+      { validator: () => form.value.password2.length > 0, message: 'Enter password confirmation.' },
+      { validator: () => form.value.password1 === form.value.password2, message: 'Passwords must match.' },
     ]
   };
 });
@@ -32,7 +32,7 @@ const handleSubmit = async () => {
   }))
 
   if (res) {
-    UiNotification('Вы успешно зарегистрировались', 'success')
+    UiNotification('You have successfully registered', 'success')
     goLogin()
   }
 }
@@ -41,26 +41,26 @@ const handleSubmit = async () => {
 <template>
   <div class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
-      <h2>Регистрация</h2>
+      <h1>Sign up</h1>
 
-      <UiFormItem label="Логин" name="username">
-        <UiInput placeholder="Введите свой логин" v-model="form.username"/>
+      <UiFormItem label="Login" name="username">
+        <UiInput placeholder="Enter your login" v-model="form.username"/>
       </UiFormItem>
 
-      <UiFormItem label="Пароль" name="password1">
-        <UiInput placeholder="Введите свой пароль" v-model="form.password1"/>
+      <UiFormItem label="Password" name="password1">
+        <UiInput placeholder="Enter your password" v-model="form.password1"/>
       </UiFormItem>
 
-      <UiFormItem label="Подтвержление пароля" name="password2">
-        <UiInput placeholder="Введите подтверждение пароля" v-model="form.password2"/>
+      <UiFormItem label="Confirm password" name="password2">
+        <UiInput placeholder="Enter password confirmation" v-model="form.password2"/>
       </UiFormItem>
 
-      <UiButton mode="neutral" native-type="submit">Зарегистрироваться</UiButton>
+      <UiButton mode="neutral" native-type="submit">Sign up</UiButton>
 
       <div class="mt-4">
-        <div>или</div>
+        <div>or</div>
         <UiButton type="tertiary" mode="neutral" size="sm" @click="goLogin">
-          Войти
+          Log in
         </UiButton>
       </div>
     </UiForm>

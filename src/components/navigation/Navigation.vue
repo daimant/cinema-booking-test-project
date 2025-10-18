@@ -10,10 +10,10 @@ import {
 } from "@dv.net/ui-kit/dist/helpers/animations-list";
 
 const routeItems: RouteItem[] = [
-  { path: '/films', meta: { title: "Фильмы", animationIcon: dashboardAnimation } },
-  { path: '/cinemas', meta: { title: "Кинотеатры", animationIcon: myAppAnimation } },
-  { path: '/tickets', meta: { title: "Мои билеты", animationIcon: listAnimation } },
-  { path: '/login', meta: { title: "Вход", animationIcon: loginAnimation } }
+  { path: '/films', meta: { title: "Movies", animationIcon: dashboardAnimation } },
+  { path: '/cinemas', meta: { title: "Cinemas", animationIcon: myAppAnimation } },
+  { path: '/tickets', meta: { title: "My tickets", animationIcon: listAnimation } },
+  { path: '/login', meta: { title: "Login", animationIcon: loginAnimation } }
 ]
 </script>
 

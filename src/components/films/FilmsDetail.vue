@@ -46,15 +46,15 @@ onMounted(async () => {
 
 <template>
   <div v-if="film" class="films-detail">
-    <h2>{{ film?.title }}</h2>
+    <h1>{{ film?.title }}</h1>
 
     <div class="films-detail-header">
       <img class='films-detail-img' :src="filmsImages.get(film.posterImage)" alt="Film img">
       <div>
         <div class="mb-4">{{ film.description }}</div>
-        <div>Год: {{ film.year }}</div>
-        <div>Продолжительность: {{ timeHelper(film.lengthMinutes) }}</div>
-        <div>Рейтинг: {{ film.rating }}</div>
+        <div>Year: {{ film.year }}</div>
+        <div>Duration: {{ timeHelper(film.lengthMinutes) }}</div>
+        <div>Rating: {{ film.rating }}</div>
       </div>
     </div>
 
@@ -68,7 +68,7 @@ onMounted(async () => {
   flex-direction: column;
   gap: 24px;
 
-  h2 {
+  h1 {
     margin-bottom: 0;
   }
 

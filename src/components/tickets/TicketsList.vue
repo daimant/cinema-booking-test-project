@@ -9,11 +9,11 @@ const { ticketsList } = storeToRefs(useTicketsStore())
 
 <template>
   <div>
-    <h2>
-      <template v-if="!isAuth">Для просмотра билетов пожалуйста авторизуйтесь</template>
-      <template v-else-if="ticketsList?.length === 0">Забронированных билетов нет</template>
-      <template v-else>Билеты</template>
-    </h2>
+    <h1>
+      <template v-if="!isAuth">To view tickets, please log in</template>
+      <template v-else-if="ticketsList?.length === 0">No booked tickets</template>
+      <template v-else>Tickets</template>
+    </h1>
 
     <div v-if="ticketsList?.length">
       {{ ticketsList }}
