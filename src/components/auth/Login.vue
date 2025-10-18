@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { UiForm, UiFormItem, UiInput, UiButton } from "@dv.net/ui-kit";
+import { UiForm, UiFormItem, UiInput, UiButton, UiLink, UiNotification } from "@dv.net/ui-kit";
 import { computed, ref } from "vue";
 import type { UiFormRules } from "@dv.net/ui-kit/dist/components/UiForm/types";
 import { useRouter } from "vue-router";
 import { postFetch } from "../../api/postFetch.ts";
+import { useAuthStore } from "../../stores/auth.ts";
+import { storeToRefs } from "pinia";
+import { useTicketsStore } from "../../stores/tickets.ts";
 
 const router = useRouter()
+const { getTickets } = useTicketsStore()
+const { isAuth } = storeToRefs(useAuthStore())
+const { setToken, logout } = useAuthStore()
 const form = ref({ username: '', password: '' })
 const formRef = ref<HTMLFormElement | null>(null);
 
@@ -18,12 +24,24 @@ const rulesForm = computed<UiFormRules>(() => {
 
 const handleSubmit = async () => {
   if (!formRef.value || !(await formRef.value.validate())) return;
-  await postFetch('login', JSON.stringify(form.value))
+  const res = await postFetch('login', JSON.stringify(form.value))
+
+  if (res?.token) {
+    UiNotification('Вы успешно авторизовались', 'success')
+    setToken(res.token)
+    await getTickets()
+  }
 }
 </script>
 
 <template>
-  <div class="mw-300">
+  <div v-if="isAuth">
+    Вы успешно вошли в профиль. хотите
+    <UiLink size="xl" @click="logout">выйти</UiLink>
+    ?
+  </div>
+
+  <div v-else class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
       <h2>Вход</h2>
 

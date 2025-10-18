@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UiForm, UiFormItem, UiInput, UiButton } from "@dv.net/ui-kit";
+import { UiForm, UiFormItem, UiInput, UiButton, UiNotification } from "@dv.net/ui-kit";
 import { computed, ref } from "vue";
 import type { UiFormRules } from "@dv.net/ui-kit/dist/components/UiForm/types";
 import { postFetch } from "../../api/postFetch.ts";
@@ -20,9 +20,21 @@ const rulesForm = computed<UiFormRules>(() => {
   };
 });
 
+const goLogin = () => {
+  router.push({ name: 'login' })
+}
+
 const handleSubmit = async () => {
   if (!formRef.value || !(await formRef.value.validate())) return;
-  await postFetch('register', JSON.stringify({ username: form.value.username, password: form.value.password1 }))
+  const res = await postFetch('register', JSON.stringify({
+    username: form.value.username,
+    password: form.value.password1
+  }))
+
+  if (res) {
+    UiNotification('Вы успешно зарегистрировались', 'success')
+    goLogin()
+  }
 }
 </script>
 
@@ -47,7 +59,7 @@ const handleSubmit = async () => {
 
       <div class="mt-4">
         <div>или</div>
-        <UiButton type="tertiary" mode="neutral" size="sm" @click="router.push({name: 'login'})">
+        <UiButton type="tertiary" mode="neutral" size="sm" @click="goLogin">
           Войти
         </UiButton>
       </div>

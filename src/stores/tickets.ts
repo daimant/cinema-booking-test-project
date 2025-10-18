@@ -6,12 +6,15 @@ import { useAuthStore } from "./auth.ts";
 
 export const useTicketsStore = defineStore("tickets", () => {
   const { isAuth } = storeToRefs(useAuthStore())
+  const { getToken } = useAuthStore()
   const ticketsList = ref<ITicket[]>()
   const bookingList = ref<Map<number, IBooking>>(new Map())
 
   const getTickets = async () => {
+    const token = await getToken()
+
     if (ticketsList.value?.length || !isAuth.value) return
-    ticketsList.value = await getFetch(`me/bookings`)
+    ticketsList.value = await getFetch(`me/bookings`, token)
   }
 
   const getBookings = async (id: number) => {

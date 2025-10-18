@@ -26,7 +26,7 @@ const getCinemasSessions = async (id: number) => {
     const day = dayjs(startTime)
     const date = day.format('DD.MM')
     const time = day.format('HH:mm')
-    console.log('get cinema 2')
+
     const filmName = getFilmNameById(movieId)
 
     if (!sessions[date]) sessions[date] = {}
