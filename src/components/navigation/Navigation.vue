@@ -8,16 +8,19 @@ import {
   loginAnimation,
   myAppAnimation
 } from "@dv.net/ui-kit/dist/helpers/animations-list";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useAuthStore } from "../../stores/auth.ts";
+import { storeToRefs } from "pinia";
 
 const collapsed = ref(false)
+const { isAuth } = storeToRefs(useAuthStore())
 
-const routeItems: RouteItem[] = [
+const routeItems = computed<RouteItem[]>(() => [
   { path: '/films', meta: { title: "Movies", animationIcon: dashboardAnimation } },
   { path: '/cinemas', meta: { title: "Cinemas", animationIcon: myAppAnimation } },
   { path: '/tickets', meta: { title: "My tickets", animationIcon: listAnimation } },
-  { path: '/login', meta: { title: "Login", animationIcon: loginAnimation } }
-]
+  { path: '/login', meta: { title: isAuth.value ? "Log out" : "Log in", animationIcon: loginAnimation } }
+])
 </script>
 
 <template>

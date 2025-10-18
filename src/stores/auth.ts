@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("auth", () => {
+  const router = useRouter()
   const isAuth = ref(false)
 
   const getToken = () => {
@@ -16,6 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   const logout = () => {
+    router.push({ name: 'films' })
     localStorage.removeItem('token')
     isAuth.value = false
   }

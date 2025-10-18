@@ -4,15 +4,29 @@ import { computed, ref } from "vue";
 import type { UiFormRules } from "@dv.net/ui-kit/dist/components/UiForm/types";
 import { postFetch } from "../../api/postFetch.ts";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "../../stores/auth.ts";
+import { useTicketsStore } from "../../stores/tickets.ts";
 
 const router = useRouter()
+const { setToken } = useAuthStore()
+const { getTickets } = useTicketsStore()
 const form = ref({ username: '', password1: '', password2: '' })
 const formRef = ref<HTMLFormElement | null>(null);
 
 const rulesForm = computed<UiFormRules>(() => {
   return {
-    username: [{ validator: () => form.value.username.length > 0, message: 'Enter login.' }],
-    password1: [{ validator: () => form.value.password1.length > 0, message: 'Enter password.' }],
+    username: [
+      { validator: () => form.value.username.length > 0, message: 'Enter login.' },
+      { validator: () => form.value.username.length >= 8, message: 'Login must be longer than 8 characters' }
+    ],
+    password1: [
+      { validator: () => form.value.password1.length > 0, message: 'Enter password.' },
+      { validator: () => form.value.password1.length >= 8, message: 'Password must be longer than 8 characters' },
+      {
+        validator: () => form.value.password1.toLocaleLowerCase() !== form.value.password1 && Boolean(form.value.password1.match(/[0-9]/)),
+        message: 'Password must contain one upper-letter and number'
+      }
+    ],
     password2: [
       { validator: () => form.value.password2.length > 0, message: 'Enter password confirmation.' },
       { validator: () => form.value.password1 === form.value.password2, message: 'Passwords must match.' },
@@ -26,14 +40,15 @@ const goLogin = () => {
 
 const handleSubmit = async () => {
   if (!formRef.value || !(await formRef.value.validate())) return;
-  const res = await postFetch('register', JSON.stringify({
-    username: form.value.username,
-    password: form.value.password1
-  }))
+  const body = { username: form.value.username, password: form.value.password1 }
+  const res = await postFetch('register', JSON.stringify(body))
 
   if (res) {
     UiNotification('You have successfully registered', 'success')
-    goLogin()
+    const res = await postFetch('login', JSON.stringify(body))
+    setToken(res.token)
+    await getTickets()
+    router.push({ name: 'tickets' })
   }
 }
 </script>

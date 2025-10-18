@@ -12,6 +12,7 @@ import { useAuthStore } from "../../stores/auth.ts";
 
 const route = useRoute()
 const router = useRouter()
+const { isAuth } = storeToRefs(useAuthStore())
 const { cinemasList } = storeToRefs(useCinemasStore())
 const { filmsList } = storeToRefs(useFilmsStore())
 const { sessionTimes } = storeToRefs(useTicketsStore())
@@ -91,7 +92,8 @@ onMounted(async () => {
       </div>
     </div>
 
-    <UiButton mode="neutral" @click="bookingHandler" :disabled="!selectedSeats.size">Book now</UiButton>
+    <UiButton v-if="isAuth" mode="neutral" @click="bookingHandler" :disabled="!selectedSeats.size">Book now</UiButton>
+    <UiButton v-else mode="neutral" @click="router.push({name: 'login'})">Log in for booking</UiButton>
   </div>
 </template>
 

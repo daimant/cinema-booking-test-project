@@ -30,6 +30,7 @@ const handleSubmit = async () => {
     UiNotification('You have successfully logged in', 'success')
     setToken(res.token)
     await getTickets()
+    router.push({ name: 'tickets' })
   }
 }
 </script>

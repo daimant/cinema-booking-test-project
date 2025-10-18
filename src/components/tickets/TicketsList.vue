@@ -6,7 +6,10 @@ import { computed, onMounted } from "vue";
 import { useCinemasStore } from "../../stores/cinemas.ts";
 import { useFilmsStore } from "../../stores/films.ts";
 import TicketsListItems from "./components/ListItem.vue";
+import { useRouter } from "vue-router";
+import { UiNotification } from "@dv.net/ui-kit";
 
+const router = useRouter()
 const { isAuth } = storeToRefs(useAuthStore())
 const { ticketsList } = storeToRefs(useTicketsStore())
 const { cinemasList } = storeToRefs(useCinemasStore())
@@ -32,19 +35,27 @@ onMounted(async () => {
     }
   }
 )
+
+onMounted(() => {
+  if (!isAuth.value) {
+    router.push({ name: 'login' })
+    UiNotification('You must be logged in to view tickets')
+  }
+})
 </script>
 
 <template>
   <div class="tickets-list flex-column gap-6">
     <h1>
-      <template v-if="!isAuth">To view tickets, please log in</template>
-      <template v-else-if="ticketsList?.length === 0">No booked tickets</template>
+      <template v-if="ticketsList?.length === 0">No booked tickets</template>
       <template v-else>Tickets</template>
     </h1>
 
-    <TicketsListItems :list="notPaidList" type="not-paid"/>
-    <TicketsListItems :list="futureList" type="future"/>
-    <TicketsListItems :list="pastList" type="past"/>
+    <template v-if="isAuth">
+      <TicketsListItems :list="notPaidList" type="not-paid"/>
+      <TicketsListItems :list="futureList" type="future"/>
+      <TicketsListItems :list="pastList" type="past"/>
+    </template>
   </div>
 </template>
 
