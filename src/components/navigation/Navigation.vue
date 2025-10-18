@@ -4,7 +4,7 @@ import { UiLayoutMenu } from "@dv.net/ui-kit";
 
 const routeItems = [
   { path: '/films', meta: { title: "Фильмы" } },
-  { path: '/cinema', meta: { title: "Кинотеатры" } },
+  { path: '/cinemas', meta: { title: "Кинотеатры" } },
   { path: '/tickets', meta: { title: "Мои билеты" } },
   { path: '/login', meta: { title: "Вход" } }
 ]

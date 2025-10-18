@@ -32,10 +32,13 @@ export const useCinemasStore = defineStore("cinemas", () => {
     cinemasSessions.value.set(id, sessions)
   }
 
+  const getCinemaNameById = (id: number): string => cinemasList.value?.find(el => el.id === id)?.name ?? ''
+
   return {
     cinemasList,
     cinemasSessions,
     getCinemas,
-    getCinemasSessions
+    getCinemasSessions,
+    getCinemaNameById
   };
 });

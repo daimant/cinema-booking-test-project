@@ -18,7 +18,7 @@ const headers: UiTableHeader[] = [
 <template>
   <UiTable class='cinema-table' :data="cinemasList || []" :headers="headers">
     <template #body-cell-detail="{ row: { id } }">
-      <UiButton type='outline' mode="neutral" @click="router.push({name: 'cinema-detail', params: { id }})">
+      <UiButton type='outline' mode="neutral" @click="router.push({name: 'cinemas-detail', params: { id }})">
         Посмотреть сеансы
       </UiButton>
     </template>

@@ -22,14 +22,14 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("./components/auth/Registration.vue"),
   },
   {
-    path: "/cinema",
-    name: "cinema",
-    component: () => import("./components/cinema/CinemaTable.vue"),
+    path: "/cinemas",
+    name: "cinemas",
+    component: () => import("./components/cinemas/CinemasTable.vue"),
   },
   {
-    path: "/cinema/:id",
-    name: "cinema-detail",
-    component: () => import("./components/cinema/CinemaDetail.vue"),
+    path: "/cinemas/:id",
+    name: "cinemas-detail",
+    component: () => import("./components/cinemas/CinemasDetail.vue"),
   },
   {
     path: "/tickets",
