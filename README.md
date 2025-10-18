@@ -1,3 +1,9 @@
+# Run instruction
+
+1) install modules ``` yarn ```
+2) start [backend](https://github.com/maxbit-solution/frontend_technical_task)
+3) start project ``` yarn dev ```
+
 # Frontend Developer / Test Assignment
 
 Hello! We’re excited to see someone ready to showcase their technical skills and complete this test assignment at a high
@@ -31,7 +37,7 @@ Develop a web application for booking cinema tickets, where users can:
 
 To make the task easier, we have prepared a **clickable prototype**. This will help you understand the requirements
 clearly.
-[Link to prototype]
+[Link to prototype](https://www.figma.com/proto/Oi0L3ZOhMjlOWwoTeHcEmS/Frontend-Technical-Task?node-id=3-6&p=f&t=H8VJfHnA5e0cm7o2-1&scaling=contain&content-scaling=fixed&page-id=0%3A1)
 
 ---
 
@@ -39,7 +45,7 @@ clearly.
 
 A backend for this test assignment is already developed and documented in **Swagger**. You can find the link, setup
 instructions, and access details in the backend README.
-[Backend repository link]
+[Backend repository link](https://github.com/maxbit-solution/frontend_technical_task)
 
 ---
 
