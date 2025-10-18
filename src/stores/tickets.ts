@@ -9,6 +9,7 @@ export const useTicketsStore = defineStore("tickets", () => {
   const { getToken } = useAuthStore()
   const ticketsList = ref<ITicket[]>()
   const bookingList = ref<Map<number, IBooking>>(new Map())
+  const sessionTimes = ref<Map<number, Set<string>>>(new Map)
 
   const getTickets = async () => {
     const token = await getToken()
@@ -18,13 +19,15 @@ export const useTicketsStore = defineStore("tickets", () => {
   }
 
   const getBookings = async (id: number) => {
-    if (bookingList.value.has(id)) return
-    bookingList.value.set(id, await getFetch(`movieSessions/${id}`))
+    const res = await getFetch(`movieSessions/${id}`)
+    bookingList.value.set(id, res)
+    return res
   }
 
   return {
     ticketsList,
     bookingList,
+    sessionTimes,
     getTickets,
     getBookings
   };

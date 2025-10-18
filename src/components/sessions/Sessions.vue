@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import { UiButton } from "@dv.net/ui-kit";
-import type { ISessionsDates } from "../../types";
+import type { ISession, ISessionsDates } from "../../types";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useTicketsStore } from "../../stores/tickets.ts";
+
+const { sessionTimes } = storeToRefs(useTicketsStore())
 
 const router = useRouter()
 const { sessions } = defineProps<{ sessions: ISessionsDates | undefined }>()
+
+const goToBooking = (id: number, times: ISession[]) => {
+  if (!sessionTimes.value.has(id)) sessionTimes.value.set(id, new Set(times.map(el => el.time)))
+  router.push({ name: 'tickets-booking', params: { id } })
+}
 </script>
 
 <template>
-  <div v-if="sessions" class="session-items-container">
-    <div v-for="date in Object.keys(sessions)" class="session-item" :key="date">
+  <div v-if="sessions" class="session-items-container flex-column gap-8">
+    <div v-for="date in Object.keys(sessions)" class="session-item flex-column gap-3" :key="date">
       <div class="session-date">{{ date }}</div>
       <div
         v-if="sessions[date]"
@@ -26,7 +35,7 @@ const { sessions } = defineProps<{ sessions: ISessionsDates | undefined }>()
               mode="neutral"
               type="outline"
               :key="`${bookingTime}${cinemaId}${date}`"
-              @click="router.push({name: 'tickets-booking', params: { id: bookingTime.id }})"
+              @click="goToBooking(bookingTime.id, sessions[date][cinemaId].sessions)"
             >
               {{ bookingTime.time }}
             </UiButton>
@@ -37,19 +46,13 @@ const { sessions } = defineProps<{ sessions: ISessionsDates | undefined }>()
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 .session-items-container {
   padding-inline: 40px;
   max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
 
   .session-item {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     width: 100%;
   }
 

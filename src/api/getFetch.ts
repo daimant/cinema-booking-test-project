@@ -1,6 +1,9 @@
 import { UiNotification } from "@dv.net/ui-kit";
+import { useAuthStore } from "../stores/auth.ts";
 
 export const getFetch = async (url: string, token?: string) => {
+  const { logout } = useAuthStore()
+
   const params = token
     ? { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } }
     : {}
@@ -10,7 +13,10 @@ export const getFetch = async (url: string, token?: string) => {
     const data = await res.json()
 
     if (res.ok) return data
-    else UiNotification('Error loading data')
+    else {
+      if (data.message === 'Unauthorized') logout()
+      UiNotification('Error loading data')
+    }
   } catch (e) {
     UiNotification(String(e))
   }

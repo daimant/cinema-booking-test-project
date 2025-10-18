@@ -41,7 +41,7 @@ const handleSubmit = async () => {
 <template>
   <div class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
-      <h1>Sign up</h1>
+      <h1 class="mb-6">Sign up</h1>
 
       <UiFormItem label="Login" name="username">
         <UiInput placeholder="Enter your login" v-model="form.username"/>

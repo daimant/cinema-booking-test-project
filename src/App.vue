@@ -17,11 +17,3 @@ onMounted(() => {
     <RouterView/>
   </div>
 </template>
-
-<style scoped lang="scss">
-
-.main {
-  position: relative;
-}
-
-</style>

@@ -43,7 +43,7 @@ const handleSubmit = async () => {
 
   <div v-else class="mw-300">
     <UiForm ref="formRef" :rules="rulesForm" :model="form" @submit.prevent="handleSubmit">
-      <h1>Log in</h1>
+      <h1 class="mb-6">Log in</h1>
 
       <UiFormItem label="Login" name="username">
         <UiInput placeholder="Enter your login" v-model="form.username"/>
