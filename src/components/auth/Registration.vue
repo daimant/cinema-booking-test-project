@@ -73,8 +73,8 @@ const handleSubmit = async () => {
       <UiButton mode="neutral" native-type="submit">Sign up</UiButton>
 
       <div class="mt-4">
-        <div>or</div>
-        <UiButton type="tertiary" mode="neutral" size="sm" @click="goLogin">
+        <div class="or-text">or</div>
+        <UiButton type="tertiary" mode="neutral" size="md" @click="goLogin">
           Log in
         </UiButton>
       </div>

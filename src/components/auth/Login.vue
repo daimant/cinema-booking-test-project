@@ -58,8 +58,8 @@ const handleSubmit = async () => {
     </UiForm>
 
     <div class="mt-4">
-      <div>or</div>
-      <UiButton type="tertiary" mode="neutral" size="sm" @click="router.push({name: 'registration'})">
+      <div class="or-text">or</div>
+      <UiButton type="tertiary" mode="neutral" size="md" @click="router.push({name: 'registration'})">
         Sign up
       </UiButton>
     </div>

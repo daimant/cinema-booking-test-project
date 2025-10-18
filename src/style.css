@@ -82,3 +82,8 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+.or-text {
+  font-size: 14px;
+  font-weight: 500;
+}
