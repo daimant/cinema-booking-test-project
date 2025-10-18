@@ -93,4 +93,5 @@ const goToBooking = (id: number, times: ISession[]) => {
     }
   }
 }
+
 </style>

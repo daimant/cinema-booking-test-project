@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { ITicket } from "../../types.ts";
+import type { ITicket } from "../../../types.ts";
 import { dayjs, UiNotification } from "@dv.net/ui-kit";
 import { UiButton } from "@dv.net/ui-kit"
-import { postFetch } from "../../api/postFetch.ts";
-import { useAuthStore } from "../../stores/auth.ts";
-import { useTicketsStore } from "../../stores/tickets.ts";
+import { postFetch } from "../../../api/postFetch.ts";
+import { useAuthStore } from "../../../stores/auth.ts";
+import { useTicketsStore } from "../../../stores/tickets.ts";
 import { storeToRefs } from "pinia";
+import TicketsRemaining from "./RemainingBlock.vue";
 
 const { list, type } = defineProps<{ list?: ITicket[], type: 'not-paid' | 'future' | 'past' }>()
 const { getToken } = useAuthStore()
@@ -44,10 +45,10 @@ const pay = async (ticketId: string) => {
       </div>
 
       <UiButton v-if="type === 'not-paid'" type="outline" mode="neutral" @click="pay(ticket.id)">
-        Pay
+        Pay now
       </UiButton>
 
-      <div v-if="type === 'not-paid'">Time remaining: {{ ticket.bookedAt }}</div>
+      <TicketsRemaining v-if="type === 'not-paid'" :bookedAt="ticket.bookedAt" :id="ticket.id"/>
     </div>
   </div>
 </template>
@@ -67,7 +68,7 @@ const pay = async (ticketId: string) => {
 
   &-item {
     display: grid;
-    grid-template-columns: 300px 150px 60px auto;
+    grid-template-columns: 300px 150px 90px auto;
     padding: 4px 32px;
     align-items: center;
     gap: 16px;

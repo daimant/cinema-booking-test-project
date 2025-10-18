@@ -39,6 +39,7 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+
 .films-detail {
   &-header {
     display: flex;
@@ -53,4 +54,5 @@ onMounted(async () => {
     border-radius: 16px;
   }
 }
+
 </style>

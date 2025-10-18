@@ -5,7 +5,7 @@ import { useTicketsStore } from "../../stores/tickets.ts";
 import { computed, onMounted } from "vue";
 import { useCinemasStore } from "../../stores/cinemas.ts";
 import { useFilmsStore } from "../../stores/films.ts";
-import TicketsListItems from "./TicketsListItems.vue";
+import TicketsListItems from "./components/ListItem.vue";
 
 const { isAuth } = storeToRefs(useAuthStore())
 const { ticketsList } = storeToRefs(useTicketsStore())
@@ -49,6 +49,7 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+
 .tickets-list {
   padding-inline: 40px;
   width: 800px;
