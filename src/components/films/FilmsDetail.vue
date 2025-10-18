@@ -1,20 +1,42 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { IFilm, ISessionsDates } from "../../types.ts";
-import { useRoute, useRouter } from "vue-router";
+import type { IFilm, ISessionsDates, ISessionsResponse } from "../../types.ts";
+import { useRoute } from "vue-router";
 import { useFilmsStore } from "../../stores/films.ts";
 import { storeToRefs } from "pinia";
 import { timeHelper } from "../../helpers/timeHelper.ts";
-import { UiButton } from '@dv.net/ui-kit'
 import Sessions from "../sessions/Sessions.vue";
+import { getFetch } from "../../api/getFetch.ts";
+import { dayjs } from "@dv.net/ui-kit";
+import { useCinemasStore } from "../../stores/cinemas.ts";
 
 const route = useRoute()
-const router = useRouter()
 const { filmsList, filmSessions, filmsImages } = storeToRefs(useFilmsStore())
-const { getFilmSessions } = useFilmsStore()
+const { getCinemaNameById } = useCinemasStore()
 const film = ref<IFilm>()
 
 const computedSessions = computed<ISessionsDates | undefined>(() => filmSessions.value.get(Number(route.params.id)))
+
+const getFilmSessions = async (id: number) => {
+  if (filmSessions.value.has(id)) return
+  const rawSessions: ISessionsResponse[] = await getFetch(`movies/${id}/sessions`)
+  const sessions: ISessionsDates = {}
+
+  rawSessions.forEach(item => {
+    const { id, cinemaId, startTime } = item
+    const day = dayjs(startTime)
+    const date = day.format('DD.MM')
+    const time = day.format('HH:mm')
+
+    const cinemaName = getCinemaNameById(cinemaId)
+
+    if (!sessions[date]) sessions[date] = {}
+    if (!sessions[date][cinemaName]) sessions[date][cinemaName] = { sessions: [] }
+    if (sessions[date][cinemaName]) sessions[date][cinemaName].sessions.push({ time, id })
+  })
+
+  filmSessions.value.set(id, sessions)
+}
 
 onMounted(async () => {
   await getFilmSessions(Number(route.params.id))

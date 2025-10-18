@@ -1,12 +1,9 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { IFilm, ISessionsDates, ISessionsResponse } from "../types.ts";
+import type { IFilm, ISessionsDates } from "../types.ts";
 import { getFetch } from "../api/getFetch.ts";
-import { dayjs } from "@dv.net/ui-kit";
-import { useCinemasStore } from "./cinemas.ts";
 
 export const useFilmsStore = defineStore("films", () => {
-  const { getCinemaNameById } = useCinemasStore()
   const filmsList = ref<IFilm[]>()
   const filmSessions = ref<Map<number, ISessionsDates>>(new Map())
   const filmsImages = ref<Map<string, string>>(new Map())
@@ -15,27 +12,6 @@ export const useFilmsStore = defineStore("films", () => {
     if (filmsList.value?.length) return
     filmsList.value = await getFetch(`movies`)
     Promise.all(filmsList.value?.map(({ posterImage }) => getPosters(posterImage)) || [])
-  }
-
-  const getFilmSessions = async (id: number) => {
-    if (filmSessions.value.has(id)) return
-    const rawSessions: ISessionsResponse[] = await getFetch(`movies/${id}/sessions`)
-    const sessions: ISessionsDates = {}
-
-    rawSessions.forEach(item => {
-      const { id, cinemaId, startTime } = item
-      const day = dayjs(startTime)
-      const date = day.format('DD.MM')
-      const time = day.format('HH:mm')
-
-      const cinemaName = getCinemaNameById(cinemaId)
-
-      if (!sessions[date]) sessions[date] = {}
-      if (!sessions[date][cinemaName]) sessions[date][cinemaName] = { sessions: [] }
-      if (sessions[date][cinemaName]) sessions[date][cinemaName].sessions.push({ time, id })
-    })
-
-    filmSessions.value.set(id, sessions)
   }
 
   const getPosters = async (url: string) => {
@@ -56,7 +32,6 @@ export const useFilmsStore = defineStore("films", () => {
     filmSessions,
     filmsImages,
     getFilms,
-    getFilmSessions,
     getFilmNameById
   };
 });

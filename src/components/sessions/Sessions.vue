@@ -57,6 +57,7 @@ const { sessions } = defineProps<{ sessions: ISessionsDates | undefined }>()
     display: flex;
     width: 100%;
     margin: 4px 32px;
+    gap: 16px;
 
     > div {
       min-width: 50%;
@@ -81,7 +82,11 @@ const { sessions } = defineProps<{ sessions: ISessionsDates | undefined }>()
   .session-time {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 8px;
+
+    .ui-button {
+      width: 60px;
+    }
   }
 }
 </style>
