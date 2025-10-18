@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UiButton } from "@dv.net/ui-kit";
+import { dayjs, UiButton } from "@dv.net/ui-kit";
 import type { ISession, ISessionsDates } from "../../types";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -36,6 +36,7 @@ const goToBooking = (id: number, times: ISession[]) => {
               type="outline"
               :key="`${bookingTime}${cinemaId}${date}`"
               @click="goToBooking(bookingTime.id, sessions[date][cinemaId].sessions)"
+              :disabled="dayjs().date(Number(date.split('.')[0])).month(Number(date.split('.')[1]) - 1).hour(Number(bookingTime.time.split(':')[0])).minute(Number(bookingTime.time.split(':')[1])).diff(Date.now()) < 0"
             >
               {{ bookingTime.time }}
             </UiButton>
@@ -50,7 +51,8 @@ const goToBooking = (id: number, times: ISession[]) => {
 
 .session-items-container {
   padding-inline: 40px;
-  max-width: 800px;
+  max-width: 700px;
+  width: 700px;
 
   .session-item {
     width: 100%;
@@ -58,8 +60,7 @@ const goToBooking = (id: number, times: ISession[]) => {
 
   .session {
     display: flex;
-    width: 100%;
-    margin: 4px 32px;
+    padding: 4px 32px;
     gap: 16px;
 
     > div {
