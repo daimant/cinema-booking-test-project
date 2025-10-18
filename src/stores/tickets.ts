@@ -13,8 +13,7 @@ export const useTicketsStore = defineStore("tickets", () => {
 
   const getTickets = async () => {
     const token = await getToken()
-
-    if (ticketsList.value?.length || !isAuth.value) return
+    if (!isAuth.value) return
     ticketsList.value = await getFetch(`me/bookings`, token)
   }
 

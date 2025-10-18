@@ -9,13 +9,12 @@ import { useFilmsStore } from "../../stores/films.ts";
 import { UiButton, UiNotification } from "@dv.net/ui-kit";
 import { postFetch } from "../../api/postFetch.ts";
 import { useAuthStore } from "../../stores/auth.ts";
-import { getCinemasSessions, getFilmSessions } from "../../helpers/sessionsHelpers.ts";
 
 const route = useRoute()
 const router = useRouter()
-const { cinemasList, cinemasSessions } = storeToRefs(useCinemasStore())
-const { filmsList, filmSessions } = storeToRefs(useFilmsStore())
-const { bookingList, sessionTimes } = storeToRefs(useTicketsStore())
+const { cinemasList } = storeToRefs(useCinemasStore())
+const { filmsList } = storeToRefs(useFilmsStore())
+const { sessionTimes } = storeToRefs(useTicketsStore())
 const { getBookings } = useTicketsStore()
 const { getToken } = useAuthStore()
 const { getTickets } = useTicketsStore()
@@ -29,7 +28,9 @@ const cols = computed(() => Array(booking.value?.seats.seatsPerRow).fill(0).map(
 
 const selectSeat = (row: number, col: number) => {
   if (booking.value?.bookedSeats.some(el => el.rowNumber === row && el.seatNumber === col)) return
-  selectedSeats.value.add(`${row}-${col}`)
+
+  if (selectedSeats.value.has(`${row}-${col}`)) selectedSeats.value.delete(`${row}-${col}`)
+  else selectedSeats.value.add(`${row}-${col}`)
 }
 
 const bookingHandler = async () => {
@@ -53,10 +54,6 @@ const bookingHandler = async () => {
 
 onMounted(async () => {
   booking.value = await getBookings(Number(route.params.id))
-
-  // if (!cinemasSessions.value.has(booking.value?.cinemaId!)) await getCinemasSessions(booking.value?.cinemaId!)
-  // if (!filmSessions.value.has(booking.value?.movieId!)) await getFilmSessions(booking.value?.movieId!)
-
   cinema.value = cinemasList.value?.find(({ id }) => id === Number(booking.value?.cinemaId))
   film.value = filmsList.value?.find(({ id }) => id === Number(booking.value?.movieId))
 })

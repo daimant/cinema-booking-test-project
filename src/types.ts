@@ -48,6 +48,13 @@ export type ITicket = {
     }
   ],
   isPaid: boolean
+  bookingParams?: IBookingInfo
+}
+
+export type IBookingInfo = {
+  cinema: string,
+  film: string,
+  startTime: string,
 }
 
 export type IBooking = {
