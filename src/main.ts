@@ -11,7 +11,7 @@ import { useTicketsStore } from "./stores/tickets.ts";
 import { useSettingsStore } from "./stores/settings.ts";
 
 const app = createApp(App)
-const router = createRouter({ history: createWebHistory(), routes })
+const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes })
 
 const initRequests = (callback: () => void) => {
   Promise.all([

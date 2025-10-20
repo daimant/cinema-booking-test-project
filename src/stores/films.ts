@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { IFilm, ISessionsDates } from "../types.ts";
 import { getFetch } from "../api/getFetch.ts";
+import { getApiUrl } from "../helpers/getApiUrl.ts";
 
 export const useFilmsStore = defineStore("films", () => {
   const filmsList = ref<IFilm[]>()
@@ -16,7 +17,7 @@ export const useFilmsStore = defineStore("films", () => {
 
   const getPosters = async (url: string) => {
     try {
-      const res = await fetch(`http://localhost:3022${url}`)
+      const res = await fetch(`${getApiUrl()}${url}`)
       const myBlob = await res.blob();
       const src = URL.createObjectURL(myBlob);
       filmsImages.value.set(url, src)

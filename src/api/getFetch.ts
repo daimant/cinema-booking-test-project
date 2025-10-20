@@ -1,5 +1,6 @@
 import { UiNotification } from "@dv.net/ui-kit";
 import { useAuthStore } from "../stores/auth.ts";
+import { getApiUrl } from "../helpers/getApiUrl.ts";
 
 export const getFetch = async (url: string, token?: string) => {
   const { logout } = useAuthStore()
@@ -9,7 +10,7 @@ export const getFetch = async (url: string, token?: string) => {
     : {}
 
   try {
-    const res = await fetch(`http://localhost:3022/${url}`, params)
+    const res = await fetch(`${getApiUrl()}/${url}`, params)
     const data = await res.json()
 
     if (res.ok) return data

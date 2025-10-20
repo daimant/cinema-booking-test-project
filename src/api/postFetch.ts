@@ -1,4 +1,5 @@
 import { UiNotification } from "@dv.net/ui-kit";
+import { getApiUrl } from "../helpers/getApiUrl.ts";
 
 export const postFetch = async (url: string, body: string, token?: string) => {
   const params: RequestInit = {
@@ -12,7 +13,7 @@ export const postFetch = async (url: string, body: string, token?: string) => {
   }
 
   try {
-    const rawRes = await fetch(`http://localhost:3022/${url}`, params)
+    const rawRes = await fetch(`${getApiUrl()}/${url}`, params)
 
     if (rawRes.ok) return rawRes.status === 200 ? await rawRes.json() : true
     else UiNotification((await rawRes.json()).message)
