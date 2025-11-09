@@ -87,3 +87,7 @@ input {
   font-size: 14px;
   font-weight: 500;
 }
+
+.ui-table {
+  min-width: 800px;
+}
